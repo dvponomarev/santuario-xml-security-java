@@ -24,6 +24,8 @@
     <name>Apache XML Security for Java</name>
     <version>2.3.0-GOST2</version>
     <description>
+        Added GOST-3410 support for XML signature. Sources: https://github.com/dvponomarev/santuario-xml-security-java.
+
         Apache XML Security for Java supports XML-Signature Syntax and Processing,
         W3C Recommendation 12 February 2002, and XML Encryption Syntax and
         Processing, W3C Recommendation 10 December 2002. As of version 1.4,
