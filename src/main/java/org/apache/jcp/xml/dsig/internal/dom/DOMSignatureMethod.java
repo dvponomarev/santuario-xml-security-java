@@ -90,6 +90,10 @@ public abstract class DOMSignatureMethod extends AbstractDOMSignatureMethod {
     static final String RSA_RIPEMD160_MGF1 =
         "http://www.w3.org/2007/05/xmldsig-more#ripemd160-rsa-MGF1";
 
+    // GOST algorithms
+    static final String GOST3410 = "http://www.w3.org/2001/04/xmldsig-more#gost3410";
+    static final String GOSTR34102001_GOST = "http://www.w3.org/2001/04/xmldsig-more#gostr34102001-gostr3411";
+
     /**
      * Creates a <code>DOMSignatureMethod</code>.
      *
@@ -182,6 +186,10 @@ public abstract class DOMSignatureMethod extends AbstractDOMSignatureMethod {
             return new DOMHMACSignatureMethod.SHA512(smElem);
         } else if (alg.equals(DOMHMACSignatureMethod.HMAC_RIPEMD160)) {
             return new DOMHMACSignatureMethod.RIPEMD160(smElem);
+        } else if (alg.equals(GOST3410)) {
+            return new Gost3410(smElem);
+        } else if (alg.equals(GOSTR34102001_GOST)) {
+            return new Gost3410(smElem);
         } else {
             throw new MarshalException
                 ("unsupported SignatureMethod algorithm: " + alg);
@@ -721,6 +729,31 @@ public abstract class DOMSignatureMethod extends AbstractDOMSignatureMethod {
         @Override
         Type getAlgorithmType() {
             return Type.ECDSA;
+        }
+    }
+
+    static final class Gost3410 extends DOMSignatureMethod {
+        Gost3410(AlgorithmParameterSpec params) throws InvalidAlgorithmParameterException {
+            super(params);
+        }
+
+        Gost3410(Element dmElem) throws MarshalException {
+            super(dmElem);
+        }
+
+        @Override
+        public String getAlgorithm() {
+            return GOST3410;
+        }
+
+        @Override
+        String getJCAAlgorithm() {
+            return "ECGOST3410";
+        }
+
+        @Override
+        Type getAlgorithmType() {
+            return Type.RSA;
         }
     }
 

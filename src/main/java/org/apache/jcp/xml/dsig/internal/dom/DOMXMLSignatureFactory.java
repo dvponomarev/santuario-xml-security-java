@@ -312,7 +312,9 @@ public final class DOMXMLSignatureFactory extends XMLSignatureFactory {
             return new DOMSignatureMethod.SHA512withECDSA(params);
         } else if (algorithm.equals(DOMSignatureMethod.ECDSA_RIPEMD160)) {
             return new DOMSignatureMethod.RIPEMD160withECDSA(params);
-        }else {
+        } else if (algorithm.equals(DOMSignatureMethod.GOST3410)) {
+            return new DOMSignatureMethod.Gost3410(params);
+        } else {
             throw new NoSuchAlgorithmException("unsupported algorithm");
         }
     }
